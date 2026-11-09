@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ContinuaX · Agentic structural FEM</title>
+<meta name="description" content="ContinuaX is a 3D finite element program for structures with Claude Code and Codex built into the window: the agent builds, runs and reports the model through 34 MCP tools while the engineer watches and edits the same model.">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a class="brand" href="#top"><img src="img/icon.png" alt="" width="30" height="30"><span>ContinuaX</span></a>
+  <nav>
+    <a href="#agent">Agent</a>
+    <a href="#session">Live session</a>
+    <a href="#solver">Solver</a>
+    <a href="#validation">Validation</a>
+    <a href="#cases">Case studies</a>
+    <a class="btn btn-small" href="#contact">Free 30-day trial</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="hero-text intro">
+    <p class="eyebrow">Structural FEM · Claude Code in the window · GPU</p>
+    <h1>Ask for the analysis.<br><span class="grad">Watch the model build itself.</span></h1>
+    <p class="lead">ContinuaX is a three-dimensional finite element program for buildings, towers, bridges, heritage structures and machine parts. Claude Code and Codex run in a terminal inside the window and drive the program through 34 Model Context Protocol tools, so every part, load and step the agent creates appears in front of you, on the same model you can edit by hand.</p>
+    <div class="cta">
+      <a class="btn" href="#agent">See the agent at work</a>
+      <a class="btn btn-ghost" href="#validation">Validation</a>
+      <a class="btn btn-ghost" href="#contact">Try free for 30 days</a>
+    </div>
+    <p class="fine">Written in Rust · CPU and CUDA (cuDSS) solvers · macOS app, Linux compute server</p>
+  </div>
+  <div class="hero-sim intro intro2">
+    <canvas id="sim" aria-label="Live earthquake response of a meshed stupa, coloured by longitudinal stress"></canvas>
+    <div class="legend" aria-hidden="true">
+      <div class="legend-title">S, S33<br><small>[kPa]</small></div>
+      <div class="legend-bands" id="legendBands"></div>
+    </div>
+    <div class="sim-hud">
+      <span id="simStage">Far-field motion</span>
+      <span id="simTime">t = 0.0 s</span>
+      <span id="simDrift">top drift 0 mm</span>
+      <span id="simFreq">f1 – Hz</span>
+    </div>
+    <div class="sim-foot">
+      <canvas id="trace" aria-label="Ground acceleration record"></canvas>
+      <div class="sim-row">
+        <button class="chip" id="simNext" type="button">Next ground motion</button>
+        <span class="sim-note">Computed in your browser: a tapered cantilever of 24 Hermite beam elements (masonry E 1.08 GPa, 5 % damping), Newmark time stepping, drawn on a meshed stupa outline. An illustration of what the program does in 3D, not a ContinuaX result.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div><b>34</b><span>MCP tools</span></div>
+  <div><b>6</b><span>element types</span></div>
+  <div><b>7</b><span>material models</span></div>
+  <div><b>6</b><span>analysis steps</span></div>
+  <div><b>0.26 %</b><span>NAFEMS LE1 error</span></div>
+</section>
+
+<section class="block" id="agent">
+  <div class="section-head reveal">
+    <p class="eyebrow">Agentic, inside the app</p>
+    <h2>Claude Code and Codex live in the Assistant drawer</h2>
+    <p>The Assistant drawer holds real terminals. One click starts Claude Code or Codex already connected to the open window, so the agent works on the model you are looking at, not on a copy in a file it guessed.</p>
+  </div>
+  <figure class="shot reveal">
+    <img src="img/app_agent.jpg" alt="ContinuaX window with the Phra Chedi Chai Mongkhon model in the viewport and Claude Code running in the embedded terminal below" loading="lazy">
+    <figcaption>The ContinuaX window with the 77,797-node model of Phra Chedi Chai Mongkhon and Claude Code started from the <em>Claude Code</em> button in the Assistant drawer. The status bar shows which file the agents edit.</figcaption>
+  </figure>
+  <div class="grid3">
+    <div class="card reveal">
+      <div class="card-ico">⌘</div>
+      <h3>One click to an agent</h3>
+      <p>The <em>Claude Code</em> and <em>Codex</em> buttons open a terminal in the drawer and start the CLI with the ContinuaX MCP server already configured. A plain shell sits next to them for anything else.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-ico">◎</div>
+      <h3>One model, two hands</h3>
+      <p>The agent edits the file open in the window. Tools refuse to replace an unsaved model or save over it without saying so, a context file beside the model tells the agent which file it owns, and edits made on disk reload in the window.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-ico">☰</div>
+      <h3>Every call in the open</h3>
+      <p>Each tool call lands in the Agent log and in the view at once: new parts appear, supports and loads are drawn, contours replace the mesh when a step finishes. Undo, redo and the property editor work on whatever the agent built.</p>
+    </div>
+  </div>
+  <figure class="shot slim reveal">
+    <img src="img/terminal.jpg" alt="Claude Code start screen inside the ContinuaX terminal" loading="lazy">
+    <figcaption>Claude Code in the embedded terminal (a real screenshot; the terminal is a full VT emulator, so any CLI agent runs there).</figcaption>
+  </figure>
+</section>
+
+<section class="block alt" id="session">
+  <div class="section-head reveal">
+    <p class="eyebrow">A session, replayed</p>
+    <h2>From one sentence to a buckling load</h2>
+    <p>A recreated, shortened Claude Code session on a calibration case of the program: a 4 m pinned JIS H-200×200×8×12 column. The tool names, the order of the calls and the result are those of ContinuaX; the wording of the agent is abridged.</p>
+  </div>
+  <div class="session reveal">
+    <div class="term" id="term" aria-live="polite">
+      <div class="term-bar"><i></i><i></i><i></i><span>Claude Code — ContinuaX</span><button class="chip chip-dark" id="replay" type="button">Replay</button></div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+    <div class="session-side">
+      <div class="view">
+        <canvas id="mini" aria-label="ContinuaX view of the column as the agent builds it"></canvas>
+        <span class="view-tag" id="viewTag">empty model</span>
+      </div>
+      <div class="tools">
+        <p class="tools-title">The 34 MCP tools <small>lit as the agent calls them</small></p>
+        <div class="tool-grid" id="toolGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="solver">
+  <div class="section-head reveal">
+    <p class="eyebrow">The program under the agent</p>
+    <h2>A general structural solver, not a demo</h2>
+    <p>An ABAQUS-like model tree in a JSON document, parametric parts meshed into quadratic elements and bonded where they touch, and a solver written for the structures engineers actually check.</p>
+  </div>
+  <div class="grid4">
+    <div class="card reveal"><h3>Elements</h3><ul><li>C3D10 quadratic tetrahedra</li><li>S6 Mindlin shells</li><li>B31 Timoshenko beams, trusses</li><li>Springs, dashpots, point masses</li></ul></div>
+    <div class="card reveal"><h3>Materials</h3><ul><li>Elastic, von Mises</li><li>Chaboche cyclic steel</li><li>Mohr–Coulomb, Drucker–Prager</li><li>Masonry damage, concrete damaged plasticity</li></ul></div>
+    <div class="card reveal"><h3>Steps</h3><ul><li>Static, Riks arc length</li><li>Frequency (Lanczos), linear buckling</li><li>Response spectrum (CQC)</li><li>HHT dynamics with base motion</li></ul></div>
+    <div class="card reveal"><h3>Compute</h3><ul><li>Multifrontal Cholesky on the CPU</li><li>cuDSS and CUDA kernels on NVIDIA</li><li>Linux compute server for rented GPUs</li><li>Results back in the same window</li></ul></div>
+  </div>
+  <div class="pair">
+    <figure class="shot reveal">
+      <img src="img/app_output.jpg" alt="ContinuaX output view showing buckling modes of three H-columns with a displacement contour" loading="lazy">
+      <figcaption>Output view: linear buckling of three 4 m H-columns. The lowest modes are the cantilever about its weak and strong axes and the pinned column, λ = 0.5052, 1.4409 and 2.0113 against Euler's 0.5061, 1.4575 and 2.0242.</figcaption>
+    </figure>
+    <figure class="shot reveal">
+      <img src="img/pagoda_eq.jpg" alt="Deformed three-tier pagoda coloured by displacement magnitude at the peak of a Bangkok earthquake record" loading="lazy">
+      <figcaption>A three-tier pagoda at the peak of its response to a Bangkok surface motion (HHT dynamics, deformation × 1000).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="block alt" id="validation">
+  <div class="section-head reveal">
+    <p class="eyebrow">Calibration</p>
+    <h2>Checked against the benchmarks engineers trust</h2>
+    <p>Every case below was built and solved through the MCP tools, the same way an agent drives the program, so the check covers the whole chain from tool call to result.</p>
+  </div>
+  <div class="table-wrap reveal">
+    <table>
+      <thead><tr><th>Benchmark</th><th>Quantity</th><th>Reference</th><th>ContinuaX</th><th>Error</th></tr></thead>
+      <tbody>
+        <tr><td>NAFEMS LE1 (C3D10)</td><td>σ<sub>yy</sub> at D</td><td>92.7 MPa</td><td>92.94 MPa</td><td>+0.26 %</td></tr>
+        <tr><td>NAFEMS LE10 (C3D10, GPU)</td><td>σ<sub>yy</sub> at D</td><td>−5.38 MPa</td><td>−5.43 MPa</td><td>−0.97 %</td></tr>
+        <tr><td>Scordelis–Lo roof (C3D10, GPU)</td><td>free-edge deflection</td><td>0.3024</td><td>0.3013</td><td>−0.37 %</td></tr>
+        <tr><td>Pinched cylinder (S6)</td><td>deflection under load</td><td>1.8248×10<sup>−5</sup></td><td>1.015 × ref.</td><td>+1.5 %</td></tr>
+        <tr><td>MacNeal–Harder hemisphere (S6)</td><td>deflection under load</td><td>0.094</td><td>0.0945</td><td>+0.5 %</td></tr>
+        <tr><td>NAFEMS FV12 free plate</td><td>six elastic frequencies</td><td>NAFEMS</td><td>all six</td><td>≤ 1.16 %</td></tr>
+        <tr><td>NAFEMS FV32 tapered plate</td><td>frequencies</td><td>NAFEMS</td><td>all</td><td>≤ 0.05 %</td></tr>
+        <tr><td>Suddenly applied load (HHT)</td><td>dynamic amplification</td><td>2.0</td><td>1.99995</td><td>0.003 %</td></tr>
+        <tr><td>H-column, solid (GPU)</td><td>torsional buckling with warping</td><td>3.839</td><td>3.8367</td><td>−0.06 %</td></tr>
+        <tr><td>Plastic cylinder, Riks</td><td>Hill's limit pressure</td><td>200.1 MPa</td><td>199.9 MPa</td><td>−0.10 %</td></tr>
+        <tr><td>Concrete cube (CDP)</td><td>crushing load</td><td>675.0 kN</td><td>675.6 kN</td><td>+0.09 %</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="cases">
+  <div class="section-head reveal">
+    <p class="eyebrow">Case studies against published tests</p>
+    <h2>Real structures, honest comparisons</h2>
+    <p>Four case studies compare the program with measurements reported in the literature, including the places where the model and the test disagree.</p>
+  </div>
+  <div class="cases">
+    <article class="case reveal">
+      <img src="img/fig_chedi.png" alt="Mode shape and first frequency of Phra Chedi Chai Mongkhon against ambient vibration measurements" loading="lazy">
+      <div><h3>Phra Chedi Chai Mongkhon, Ayutthaya</h3><p>A 70 m brick stupa built from a laser-scan table and photographs. Against ambient vibration measurements (1.378–1.398 Hz), the model matches the first frequency with a rigid base and a masonry modulus of 1.08 GPa, with a mode-shape correlation of 0.97.</p></div>
+    </article>
+    <article class="case reveal">
+      <img src="img/fig_members.png" alt="Moment-curvature of a steel I-beam, load-deflection of a reinforced concrete beam and of a box girder against their tests" loading="lazy">
+      <div><h3>Steel beam, concrete beam, box girder</h3><p>An IPE160 beam in four-point bending (Yang, Wadee and Gardner 2025): stiffness 1,780 against 1,743 kN m². The shear-critical beam VS-OA1 (Vecchio and Shim 2004): 359 kN where the step stopped against 331 kN measured. A 30 m prestressed box girder (Wang et al. 2020): neutral axis at 111 cm against the gauges' 110–118 cm, stiffness 0.73 of the test.</p></div>
+    </article>
+    <article class="case reveal">
+      <img src="img/fig_bridge_contours.png" alt="Longitudinal stress contours of the 30 m box girder and strain across its top flange against the measured strains" loading="lazy">
+      <div><h3>Stress where the gauges were</h3><p>The box girder's longitudinal stress over the mid-span section and the deck, and the strain across the top flange against the measured shear lag: the same shape, with the largest strain over the webs, at twice the measured magnitude.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="section-head reveal">
+    <p class="eyebrow">Get ContinuaX</p>
+    <h2>Try it free for 30 days, or ask for a quotation</h2>
+    <p>ContinuaX ships as a macOS app with the Linux compute server inside, so an agent can rent a GPU, start the server and send the analysis there without the source code. Tell us what you need and we reply by email.</p>
+  </div>
+
+  <form class="req reveal" id="reqForm" novalidate>
+    <fieldset class="req-type">
+      <legend>I would like</legend>
+      <label class="req-opt"><input type="radio" name="type" value="trial" checked>
+        <span><b>30-day trial</b><small>A full build for one user, free for 30 days</small></span></label>
+      <label class="req-opt"><input type="radio" name="type" value="quote">
+        <span><b>Quotation</b><small>Licences for a team, a company or a university</small></span></label>
+    </fieldset>
+
+    <div class="req-grid">
+      <label>Name<input name="name" required autocomplete="name"></label>
+      <label>Work email<input name="email" type="email" required autocomplete="email"></label>
+      <label>Organisation<input name="org" required autocomplete="organization"></label>
+      <label>Country<input name="country" autocomplete="country-name"></label>
+      <label>Main use
+        <select name="use">
+          <option>Structural design and assessment</option>
+          <option>Earthquake and dynamic analysis</option>
+          <option>Heritage structures</option>
+          <option>Research</option>
+          <option>Teaching</option>
+          <option>Other</option>
+        </select></label>
+      <label>Computer
+        <select name="platform">
+          <option>macOS (Apple silicon)</option>
+          <option>macOS (Intel)</option>
+          <option>macOS + Linux GPU server</option>
+          <option>Not decided</option>
+        </select></label>
+      <label class="q-only">Number of users<input name="seats" type="number" min="1" value="1"></label>
+      <label class="q-only">Licence
+        <select name="licence">
+          <option>Commercial</option>
+          <option>Academic</option>
+          <option>Not sure</option>
+        </select></label>
+      <label class="wide">Message<textarea name="msg" rows="4" placeholder="The structures you analyse, the size of the models, or any question"></textarea></label>
+    </div>
+
+    <p class="req-err" id="reqErr" role="alert"></p>
+    <div class="cta center">
+      <button class="btn" type="submit" id="reqSend">Request the 30-day trial</button>
+      <button class="btn btn-ghost" type="button" id="reqCopy">Copy the request</button>
+    </div>
+    <p class="req-note" id="reqNote">Sending opens your mail app with the request filled in, addressed to <a href="mailto:tellusfem@gmail.com">tellusfem@gmail.com</a>. If you use webmail, copy the request and send it to that address.</p>
+  </form>
+</section>
+
+</main>
+
+<footer>
+  <span><img src="img/icon.png" alt="" width="20" height="20"> ContinuaX · agentic structural finite elements</span>
+  <span>Claude Code is a product of Anthropic and Codex of OpenAI; ContinuaX starts the CLIs you have installed.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
