@@ -21,6 +21,7 @@
     <a href="#solver">Solver</a>
     <a href="#validation">Validation</a>
     <a href="#cases">Case studies</a>
+    <a href="#paper">Paper</a>
     <a class="btn btn-small" href="#contact">Free 30-day trial</a>
   </nav>
 </header>
@@ -34,7 +35,7 @@
     <p class="lead">ContinuaX is a three-dimensional finite element program for buildings, towers, bridges, heritage structures and machine parts. Claude Code and Codex run in a terminal inside the window and drive the program through 34 Model Context Protocol tools, so every part, load and step the agent creates appears in front of you, on the same model you can edit by hand.</p>
     <div class="cta">
       <a class="btn" href="#agent">See the agent at work</a>
-      <a class="btn btn-ghost" href="#validation">Validation</a>
+      <a class="btn btn-ghost" href="#paper">Read the paper</a>
       <a class="btn btn-ghost" href="#contact">Try free for 30 days</a>
     </div>
     <p class="fine">Written in Rust · CPU and CUDA (cuDSS) solvers · macOS app, Linux compute server</p>
@@ -196,6 +197,39 @@
       <div><h3>Stress where the gauges were</h3><p>The box girder's longitudinal stress over the mid-span section and the deck, and the strain across the top flange against the measured shear lag: the same shape, with the largest strain over the webs, at twice the measured magnitude.</p></div>
     </article>
   </div>
+</section>
+
+<section class="block alt" id="paper">
+  <div class="section-head reveal">
+    <p class="eyebrow">Paper</p>
+    <h2>The methods and every check, in one report</h2>
+    <p>The paper describes the elements, material models and solvers, and reports each benchmark and case study above with its inputs, so you can rerun any of them.</p>
+  </div>
+  <article class="paper reveal">
+    <div class="paper-meta">
+      <span class="paper-tag">Zenodo · 9 November 2026</span>
+      <a class="doi" href="https://doi.org/10.5281/zenodo.24078848">DOI 10.5281/zenodo.24078848</a>
+    </div>
+    <h3>ContinuaX: an agent-driven finite element program for structures, its solution methods and its calibration in static and dynamic analysis</h3>
+    <p class="paper-authors">Sompote Youwai</p>
+    <p>ContinuaX offers solids, shells, beams, seven material models and static, buckling, frequency, response-spectrum and implicit dynamic analysis through 34 MCP tools, solved on the CPU or on an NVIDIA GPU, and every calibration case was built and solved through those tools. The NAFEMS LE1 membrane differs from its reference by +0.26 %, the LE10 thick plate converges to within 1 % on 312,000 equations on a rented GPU, and the NAFEMS FV12 frequencies agree within 1.16 %. Against measurements, the 70 m brick stupa calibrated to its first frequency of 1.388 Hz gives a masonry modulus of 1.08 GPa, whereas the box girder is 0.73 times as stiff as the test. The paper also states the limits, among them that shells carry no geometric stiffness yet.</p>
+    <div class="cta">
+      <a class="btn" href="https://zenodo.org/records/24078848/files/calibrate.pdf?download=1">Download PDF</a>
+      <a class="btn btn-ghost" href="https://zenodo.org/records/24078848">View on Zenodo</a>
+    </div>
+    <details class="cite">
+      <summary>Cite this paper (BibTeX)</summary>
+      <pre>@misc{youwai2026continuax,
+  author    = {Youwai, Sompote},
+  title     = {{ContinuaX}: an agent-driven finite element program for structures,
+               its solution methods and its calibration in static and dynamic analysis},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.24078848},
+  url       = {https://doi.org/10.5281/zenodo.24078848}
+}</pre>
+    </details>
+  </article>
 </section>
 
 <section class="block contact" id="contact">
